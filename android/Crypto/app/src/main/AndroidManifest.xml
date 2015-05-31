@@ -21,7 +21,6 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" >
-
         </activity>
         <activity
             android:name=".SplashActivity"
@@ -35,6 +34,14 @@
         <activity
             android:name=".BasicAuthActivity"
             android:label="@string/title_activity_basic_auth" >
+        </activity>
+        <activity
+            android:name=".CreatePin"
+            android:label="@string/title_activity_create_pin" >
+        </activity>
+        <activity
+            android:name=".ChangePinActivity"
+            android:label="@string/title_activity_change_pin" >
         </activity>
     </application>
 

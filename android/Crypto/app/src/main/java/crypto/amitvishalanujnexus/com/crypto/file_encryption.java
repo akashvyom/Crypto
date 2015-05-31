@@ -27,6 +27,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class file_encryption extends ActionBarActivity {
 
     private  String fileData;
+    private String fileName;
     private String decryptedData;
     private String encryptedData;
     private SecretKeySpec sks;
@@ -65,7 +66,7 @@ public class file_encryption extends ActionBarActivity {
     private void b_readFile(){
         try {
             String[] mm = filePath.split("/");
-            Log.d("mm",mm[4]);
+            fileName = mm[4];
             File myFile = new File("/sdcard/"+mm[4]);
             FileInputStream fIn = new FileInputStream(myFile);
             BufferedReader myReader = new BufferedReader(
@@ -146,7 +147,7 @@ public class file_encryption extends ActionBarActivity {
         catch(Exception e){
             Toast.makeText(this,"Unable to encrypt file.",Toast.LENGTH_SHORT).show();
         }
-        createFile(encryptedData,"encofile.txt");
+        createFile(encryptedData,fileName+"_encrypted");
     }
 
     public void b_decryptFile(View v){
@@ -159,7 +160,7 @@ public class file_encryption extends ActionBarActivity {
 
         try{
             decryptedData = AESHelper0.v_decrypt(fileData, sks);
-            createFile(decryptedData,"decofile.txt");
+            createFile(decryptedData,fileName+"_decrypted");
         }
         catch(Exception e ){
             Toast.makeText(this,"Unable to decrypt file",Toast.LENGTH_SHORT).show();

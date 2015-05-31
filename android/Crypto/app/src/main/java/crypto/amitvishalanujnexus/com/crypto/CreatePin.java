@@ -1,7 +1,6 @@
 package crypto.amitvishalanujnexus.com.crypto;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,30 +15,41 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class BasicAuthActivity extends ActionBarActivity {
+public class CreatePin extends ActionBarActivity {
+
     private SharedPreferences spKey;
-    private Context context = this;
-    private EditText et_pin;
+    private EditText et_pin1;
+    private EditText et_pin2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basic_auth);
-        et_pin = (EditText)findViewById(R.id.et_authpin);
-        spKey = this.getSharedPreferences("com.amitvishalanujnexus.crypto.safepin",Context.MODE_PRIVATE);
-        String p = spKey.getString("pin","-1");
-        if(p.contentEquals("-1")){
-            Intent i = new Intent(this,CreatePin.class);
-            startActivity(i);
+        setContentView(R.layout.activity_create_pin);
+        spKey = this.getSharedPreferences("com.amitvishalanujnexus.crypto.safepin", Context.MODE_PRIVATE);
+        et_pin1 = (EditText)findViewById(R.id.et_pin1);
+        et_pin2 = (EditText)findViewById(R.id.et_pin2);
+    }
+
+    public void b_savepin(View v){
+        String pin1 = et_pin1.getText().toString();
+        String pin2 = et_pin2.getText().toString();
+        if(pin1.contentEquals(pin2)){
+            String md5pin = md5hash(pin1);
+            SharedPreferences.Editor editor = spKey.edit();
+            editor.putString("pin",md5pin);
+            editor.commit();
+            Toast.makeText(this,"Pin saved successfully",Toast.LENGTH_SHORT).show();
+            this.finish();
+        }
+        else{
+            Toast.makeText(this,"Pin do not match",Toast.LENGTH_SHORT).show();
+            et_pin1.setText("");
+            et_pin2.setText("");
+            et_pin1.setFocusable(true);
         }
     }
 
-    public void authenticatePin(View v){
-        String pin = et_pin.getText().toString();
-        authenticateUserPin(pin);
-    }
-
-    private void authenticateUserPin(String pin){
-        String userpin = spKey.getString("pin","");
+    private String md5hash(String pin){
         MessageDigest m = null;
 
         try {
@@ -50,20 +60,13 @@ public class BasicAuthActivity extends ActionBarActivity {
 
         m.update(pin.getBytes(),0,pin.length());
         String hash = new BigInteger(1, m.digest()).toString(16);
-        if(userpin.contentEquals(hash)){
-            Intent i = new Intent(context,HomeActivity.class);
-            startActivity(i);
-            this.finish();
-        }else{
-            Toast.makeText(this,"You entered wrong pin",Toast.LENGTH_SHORT).show();
-            et_pin.setText("");
-        }
+        return hash;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_basic_auth, menu);
+        getMenuInflater().inflate(R.menu.menu_create_pin, menu);
         return true;
     }
 

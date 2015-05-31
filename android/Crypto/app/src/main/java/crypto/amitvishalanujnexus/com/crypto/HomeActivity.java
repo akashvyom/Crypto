@@ -44,6 +44,11 @@ public class HomeActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if(id == R.id.action_changepin){
+            Intent i = new Intent(this,ChangePinActivity.class);
+            startActivity(i);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

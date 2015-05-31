@@ -22,7 +22,7 @@ public class SplashActivity extends ActionBarActivity {
                         sleep(100);
                         homeTimer = homeTimer + 100;
                     }
-                    Intent i = new Intent(context,HomeActivity.class);
+                    Intent i = new Intent(context,BasicAuthActivity.class);
                     startActivity(i);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block

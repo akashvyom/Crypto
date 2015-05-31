@@ -37,7 +37,6 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
 import static android.widget.Toast.LENGTH_SHORT;
-import static crypto.amitvishalanujnexus.com.crypto.AEShelper2.*;
 
 
     public class MainActivity extends ActionBarActivity {

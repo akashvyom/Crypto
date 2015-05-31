@@ -8,4 +8,6 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_basic_auth">BasicAuthActivity</string>
+    <string name="title_activity_create_pin">Create Pin</string>
+    <string name="title_activity_change_pin">ChangePin</string>
 </resources>
